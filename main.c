@@ -1,18 +1,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <inttypes.h>
-#include <assert.h>
+#include "dynamicInvoke.h"
 
-typedef int64_t llT;
+void printTest(int64_t t, int64_t c, int64_t d, int64_t f, int64_t g, int64_t x, int64_t y) {
+	printf("%"PRIx64" %"PRIx64" %"PRIx64" %"PRIx64" %"PRIx64" %"PRIx64" %"PRIx64"\n", t, c, d, f, g, x, y);
+}
 
-typedef void (*funcT)(llT, llT, llT, llT, llT, llT, llT);
-
-void printTest(llT t, llT c, llT d, llT f, llT g, llT x, llT y) {
-	printf("%"PRId64" %"PRId64" %"PRId64" %"PRId64" %"PRId64" %"PRId64" %"PRId64"\n", t, c, d, f, g, x, y);
+int add(int x, int y) {
+	printf("%d\n", x + y);
+	return x + y;
 }
 
 int main(int argc, char const *argv[]){
-	llT x[] = {1, 2, 3, 4, 6, 7, 8};
-	x64fastcall_invoke(&test, 7, x);
+	//Test 1
+	int64_t x[] = {0xFFAABBCCCCBBAAFF, 0xCCBBAAFFFFAABBCC, 0xCCBBAAFF, 4, 6, 0xFFAABBCCCCBBAAFF, 0xCCBBAAFFFFAABBCC};
+	x64fastcall_invoke(&printTest, 7, x);
+	
+	//Test 2
+	int64_t y[] = {10, 16};
+	int64_t w = x64fastcall_invoke(&add, 2, y);
+	printf("%"PRId64"\n", w);
 	return 0;
 }
