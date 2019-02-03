@@ -7,6 +7,9 @@
 *.obj
 *.elf
 
+#raw assembly
+*.s
+
 # Linker output
 *.ilk
 *.map
